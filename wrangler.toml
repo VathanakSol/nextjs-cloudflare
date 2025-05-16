@@ -1,0 +1,13 @@
+name = "nextjs-demo"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+main = "./.open-next/worker.js"
+
+[[r2_buckets]]
+binding = "NEXT_INC_CACHE_R2_BUCKET"
+bucket_name = "nextjs-demo-cache"
+preview_bucket_name = "nextjs-demo-cache"
+
+[assets]
+directory = ".open-next/assets"
