@@ -1,7 +1,8 @@
 # Use an official Node.js runtime as a parent image
-FROM node:23-slim AS builder
+FROM node:18-alpine AS builder
 
 RUN apk add --no-cache libc6-compat
+
 # Set the working directory to /app
 WORKDIR /app
 
@@ -18,11 +19,11 @@ RUN npm i sharp
 RUN npm run build
 
 # Multi-stage build process
-FROM node:23-slim
+FROM node:18-alpine
 
 # update and install latest dependencies, add dumb-init package
 # add a non-root user
-RUN apk update && apk upgrade && apk add dumb-init --no-cache && adduser -D nextuser
+RUN apk update && apk upgrade && apk add dumb-init && adduser -D nextuser
 
 # Set work dir as app
 WORKDIR /app
@@ -35,7 +36,6 @@ COPY --chown=nextuser:nextuser --from=builder /app/.next/standalone ./
 
 # Copy the static folder inside the .next folder generated from the build process
 COPY --chown=nextuser:nextuser --from=builder /app/.next/static ./.next/static
-
 # Set non-root user
 USER nextuser
 
