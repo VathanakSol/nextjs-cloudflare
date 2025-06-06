@@ -1,0 +1,31 @@
+name: Deploy Next.js Project
+
+on:
+  push:
+    branches:
+      - main  
+
+jobs:
+  build-and-test:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Next.js project
+        run: npm run build
+
+      - name: Run tests (if any)
+        run: npm test  # Skip or modify if not using tests
+
+      - name: Export static files (for static hosting)
+        run: npm run export  # Only if using `next export`
