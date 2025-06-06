@@ -27,5 +27,23 @@ jobs:
       - name: Run tests (if any)
         run: npm test  # Skip or modify if not using tests
 
-      - name: Export static files (for static hosting)
-        run: npm run export  # Only if using `next export`
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Configure Git
+        run: |
+          git config --global user.name "Vathanak"
+          git config --global user.email "vathanaksol1605@gmail.com"
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: .next/static # Next.js static output
+          branch: gh-pages
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clean up
+        run: |
+          git checkout main
+          rm -rf .next
