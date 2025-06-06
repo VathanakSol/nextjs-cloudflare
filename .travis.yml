@@ -3,21 +3,21 @@ language: node_js
 node_js: 
   - "20"
 
-cache: 
+cache:
   directories:
     - node_modules
 
 # branches to build
-branches: 
+branches:
   only:
     - main
 
-
 install:
-  - npm install 
+  - npm install
 
 # run script before deploy
-script: 
+script:
   - npm run lint
   - npm run test
   - npm run build
+
