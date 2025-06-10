@@ -31,9 +31,6 @@ WORKDIR /app
 # Copy the public folder from the project as this is not included in the build process
 COPY --chown=nextuser:nextuser --from=builder /app/public ./public
 
-# Copy the standalone folder inside the .next folder generated from the build process
-COPY --chown=nextuser:nextuser --from=builder /app/.next/standalone ./
-
 # Copy the static folder inside the .next folder generated from the build process
 COPY --chown=nextuser:nextuser --from=builder /app/.next/static ./.next/static
 # Set non-root user
