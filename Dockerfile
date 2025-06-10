@@ -28,9 +28,6 @@ RUN apk update && apk upgrade && apk add dumb-init && adduser -D nextuser
 # Set work dir as app
 WORKDIR /app
 
-# Copy the public folder from the project as this is not included in the build process
-COPY --chown=nextuser:nextuser --from=builder /app/public ./public
-
 # Copy the static folder inside the .next folder generated from the build process
 COPY --chown=nextuser:nextuser --from=builder /app/.next/static ./.next/static
 # Set non-root user
